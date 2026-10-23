@@ -1,0 +1,24 @@
+{
+  "project": "Splosh Jolt",
+  "url": "https://gitlab.com/skippyznjiff/jolt",
+  "commit": "19958fa2c349cb1fd15cc2b05545d0c880732b52",
+  "license": "MIT",
+  "sha256": {
+    "hud.cpp": "3427b3c1cba76779c587dc6de74fa177d05bb41392392457f5e362bb85ac2d7a",
+    "hud.h": "60caf838dfb35e48a47c50b69a598dc9aa7400792197881107a2764bd830b738",
+    "wobble.cpp": "c1bafe3f1b90ee09f9b8a82317efb5c8a39d231a8668244d118501ad96b6cce4",
+    "wobble.h": "fde0d5f10864dbe87157cd43b40bd265402e7c0ab08fa49c141ebd857b6747df",
+    "timeline.cpp": "6dfb8b3aa70311f2a3b1a96371da1c1defadaaeeaa627197cee62700ab86fbc5",
+    "timeline.h": "f0beaaa0ff78593981e6c3dd3e6d82f98cc8e4079e9148af7a21c0a6fde61fb0",
+    "manual.cpp": "da07af0967258044852112b9f7272b25e9436719e831cde0c7593e1adf8459f2",
+    "manual.h": "35a3083f6aa2af11324b5d77e52986ca2793747c9cf2a6f285d28b5148e92d96",
+    "report.cpp": "74282d28885d89e8a4a2e89bdb8f7f6addfe58c2f3b9fea1a1f2802821aca8eb",
+    "report.h": "bd95b0b4393abf35c290636925b547b9f5e54bc799fe513ffb8d4a50319b2d89",
+    "sprites.h": "2f7a97761f7dae03aaa3fb047954881ae751a121b84f3e39d795bde1a6bb6e5a",
+    "trouble.h": "be5a87bf0278caa40336d30a3169eaee152b2de1a99db0d86f5098b5b2d99036",
+    "version.h": "d8e37fa0d465ef1379ab5519c63be64eac4d4063fbaa58dc58c57d40f5e33be3",
+    "viewer_html.h": "6481ab1dd028aedc0e6b099e5d31562a50eda9cf516230d3919ea7d310fc15a3",
+    "parallel.h": "8c60b4c06ee940bf5ff6ab2a2c5971ff38bf58bae213a9dd5d07489fa0e0cb03",
+    "video.h": "2eb22ffe2dbb7f0bbb8910ac5d697132ae60627f3bd4263b5371371c75b3a182"
+  }
+}

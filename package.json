@@ -1,0 +1,30 @@
+{
+  "name": "jolt-studio",
+  "version": "0.1.0",
+  "description": "Browser-based Minecraft video analysis for detecting HUD jolts, tracking game ticks, and identifying possible cuts. Videos are processed locally on your device.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:engine": "python3 scripts/build_engine.py",
+    "test": "python3 scripts/test_engine.py && node --test tests/*.test.mjs",
+    "dev": "node scripts/serve.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DawsonCodes/Jolt-Studio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/DawsonCodes/Jolt-Studio/issues"
+  },
+  "homepage": "https://github.com/DawsonCodes/Jolt-Studio#readme",
+  "dependencies": {
+    "mediabunny": "1.62.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "private": true
+}

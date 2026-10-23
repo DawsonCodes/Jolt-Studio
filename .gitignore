@@ -1,0 +1,11 @@
+node_modules/
+build/
+dist/
+.openai/
+*.mp4
+*.webm
+*.mkv
+*.mov
+!web/demo.webm
+build-engine.log
+__pycache__/

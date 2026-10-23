@@ -1,0 +1,53 @@
+name: Build, test, and publish Jolt Studio
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: '4.0.18'
+          actions-cache-folder: emsdk-cache
+      - run: npm ci
+      - name: Build original detector for the browser
+        run: npm run build:engine
+      - name: Test detector, browser adapter, and WebAssembly parity
+        run: npm test
+      - name: Package static website
+        run: npm run build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: jolt-studio-static
+          path: dist
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          path: dist
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

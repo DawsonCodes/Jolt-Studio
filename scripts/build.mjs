@@ -1,0 +1,16 @@
+import { build } from 'esbuild';
+import { cp, mkdir, rm, readFile, writeFile } from 'node:fs/promises';
+await rm('dist', { recursive: true, force: true });
+await mkdir('dist', { recursive: true });
+await cp('web/index.html', 'dist/index.html');
+await cp('web/styles.css', 'dist/styles.css');
+await cp('web/favicon.svg', 'dist/favicon.svg');
+await cp('build/wasm/jolt-engine.mjs', 'dist/jolt-engine.mjs');
+await cp('build/wasm/jolt-engine.wasm', 'dist/jolt-engine.wasm');
+await build({ entryPoints: ['web/app.js','web/scanner-worker.js'], bundle: true, format: 'esm', target: 'es2022', outdir: 'dist', minify: true, sourcemap: true, external: ['./jolt-engine.mjs'], legalComments: 'linked' });
+await cp('vendor/jolt/LICENSE', 'dist/Jolt-LICENSE.txt');
+await cp('node_modules/mediabunny/LICENSE', 'dist/Mediabunny-LICENSE.txt');
+await cp('LICENSE', 'dist/LICENSE.txt');
+await writeFile('dist/.nojekyll', '');
+await cp('web/demo.webm', 'dist/demo.webm');
+console.log('Built static app in dist/');
