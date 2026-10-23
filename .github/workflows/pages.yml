@@ -1,4 +1,4 @@
-name: Build, test, and publish Jolt Studio
+name: Jolt Studio build and deploy
 on:
   push:
     branches: [main]

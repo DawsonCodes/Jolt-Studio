@@ -13,4 +13,5 @@ await cp('node_modules/mediabunny/LICENSE', 'dist/Mediabunny-LICENSE.txt');
 await cp('LICENSE', 'dist/LICENSE.txt');
 await writeFile('dist/.nojekyll', '');
 await cp('web/demo.webm', 'dist/demo.webm');
+await cp('web/demo-report.json', 'dist/demo-report.json');
 console.log('Built static app in dist/');

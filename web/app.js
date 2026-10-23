@@ -161,6 +161,12 @@ $('crack').onclick = () => action(async () => {
   $('manual-output').textContent = answer.text;
 });
 $('open-report').onclick = () => $('report-file').click();
+$('sample-report').onclick = () => action(async () => {
+  const response = await fetch(new URL('./demo-report.json', import.meta.url));
+  if (!response.ok) throw new Error('The example report could not be loaded.');
+  result = validateResult(await response.json()); renderResults();
+  notice('Example report from the synthetic known-cut fixture. This loads saved test results; use the scanner to analyze your own video.');
+});
 $('report-file').onchange = () => {
   const f = $('report-file').files[0]; $('report-file').value = '';
   if (f) action(async () => {

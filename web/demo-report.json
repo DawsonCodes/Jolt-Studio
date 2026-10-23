@@ -1,0 +1,31 @@
+{
+ "version": "2.5",
+ "title": "known-cut",
+ "source": "local file",
+ "bar": {"x": 330.000, "y": 290.000, "scale": 2.0000},
+ "fps": 60.0000,
+ "span": [0.000000, 29.983333],
+ "readable": 1.0000,
+ "unread": [],
+ "screens": [{"x": 330.000, "y": 290.000, "scale": 2.0000}],
+ "games": [{"number": 1, "uptime_at_video_start": 305.000000, "screen": 1}],
+ "runs": [
+  {"game": 1, "points": [[0.000000, 6100, 0], [3.050000, 6161, 1], [6.100000, 6222, 2], [9.150000, 6283, 3], [12.200000, 6344, 4]]},
+  {"game": 1, "points": [[15.250000, 6710, 5], [18.300000, 6771, 6], [21.350000, 6832, 7], [24.400000, 6893, 8], [27.450000, 6954, 9]]}
+ ],
+ "breaks": [
+  {"from": 12.200000, "to": 15.250000, "since": 12.200000, "kind": "removed", "game": 1, "jump_seconds": 15.250000}
+ ],
+ "jolts": [
+  {"time": 0.000000, "frame": 0, "frames": 3, "offsets": [-1, -1, 1, 1, -1, 1, -1, 1, 0, 0], "food": 20, "tick": 6100, "skipped_draws": 0},
+  {"time": 3.050000, "frame": 183, "frames": 3, "offsets": [-1, 0, 0, -1, -1, 0, 1, 1, -1, 0], "food": 20, "tick": 6161, "skipped_draws": 0},
+  {"time": 6.100000, "frame": 366, "frames": 3, "offsets": [-1, -1, 1, 0, 0, 0, -1, 1, 1, -1], "food": 20, "tick": 6222, "skipped_draws": 0},
+  {"time": 9.150000, "frame": 549, "frames": 3, "offsets": [-1, 1, 1, -1, 0, -1, -1, -1, 0, 1], "food": 20, "tick": 6283, "skipped_draws": 0},
+  {"time": 12.200000, "frame": 732, "frames": 3, "offsets": [1, 0, 1, -1, 1, 0, 0, -1, 1, 1], "food": 20, "tick": 6344, "skipped_draws": 0},
+  {"time": 15.250000, "frame": 915, "frames": 3, "offsets": [-1, -1, -1, 0, 1, 1, 0, -1, -1, 0], "food": 20, "tick": 6710, "skipped_draws": 0},
+  {"time": 18.300000, "frame": 1098, "frames": 3, "offsets": [1, -1, 1, 0, -1, -1, -1, -1, -1, 0], "food": 20, "tick": 6771, "skipped_draws": 0},
+  {"time": 21.350000, "frame": 1281, "frames": 3, "offsets": [-1, 1, -1, -1, -1, -1, 0, 1, -1, 0], "food": 20, "tick": 6832, "skipped_draws": 0},
+  {"time": 24.400000, "frame": 1464, "frames": 3, "offsets": [0, 0, -1, 1, -1, -1, 1, -1, 1, 0], "food": 20, "tick": 6893, "skipped_draws": 0},
+  {"time": 27.450000, "frame": 1647, "frames": 3, "offsets": [0, 0, 1, 1, 1, -1, 1, -1, -1, 0], "food": 20, "tick": 6954, "skipped_draws": 0}
+ ]
+,"studio":{"frames":1800,"maxHours":1.000000,"description":"video       0:00:00.00 to 0:00:29.98 at 60.00 fps\u000ahunger bar  x 330.0  y 290.0  2.000 px per gui pixel, readable in 100% of frames\u000ajolts       10 seen, 10 matched to a tick\u000a\u000agame 1      had been running 0:05:05.00 when the video starts\u000a\u000avideo time               ticks                jolts  game\u000a0:00:00.00 - 0:00:12.20  6100 - 6344              5  1\u000a  between 0:00:12.20 and 0:00:15.25: COUNTER JUMPED 15.25 s AHEAD: footage removed or sped up, or another game instance\u000a0:00:15.25 - 0:00:27.45  6710 - 6954              5  1\u000a\u000aat least 15.25 s of footage is missing across 1 cuts\u000a"}}
