@@ -11,10 +11,10 @@
   <a class="brand" href="./" aria-label="Jolt Studio home"><img src="./favicon.svg" alt="" width="35" height="35"><span>JOLT<span class="brand-sub">STUDIO</span></span></a>
   <div class="side-label">WORKSPACE</div>
   <nav aria-label="Workspace">
-    <button class="nav active" data-tab="scan"><span class="nav-icon">▣</span> Video scanner <span class="key">1</span></button>
-    <button class="nav" data-tab="manual"><span class="nav-icon">⌁</span> Manual cracker <span class="key">2</span></button>
-    <button class="nav" data-tab="report"><span class="nav-icon">▤</span> Open report <span class="key">3</span></button>
-    <button class="nav" data-tab="guide"><span class="nav-icon">ⓘ</span> How it works</button>
+    <button class="nav active" data-tab="scan" aria-current="page" aria-keyshortcuts="1"><span class="nav-icon" aria-hidden="true">▣</span> Video scanner <span class="key" aria-hidden="true">1</span></button>
+    <button class="nav" data-tab="manual" aria-keyshortcuts="2"><span class="nav-icon" aria-hidden="true">⌁</span> Manual cracker <span class="key" aria-hidden="true">2</span></button>
+    <button class="nav" data-tab="report" aria-keyshortcuts="3"><span class="nav-icon" aria-hidden="true">▤</span> Open report <span class="key" aria-hidden="true">3</span></button>
+    <button class="nav" data-tab="guide" aria-keyshortcuts="4"><span class="nav-icon" aria-hidden="true">ⓘ</span> How it works <span class="key" aria-hidden="true">4</span></button>
   </nav>
   <div class="sidebar-bottom"><div class="private-icon">⌘</div><strong>Your video. Your device.</strong><p>Videos stay local. Refreshing clears your session.</p><a href="https://github.com/DawsonCodes/Jolt-Studio" target="_blank" rel="noopener">Source on GitHub ↗</a><small>Built on Splosh’s Jolt · v0.1</small></div>
 </aside>
@@ -38,11 +38,11 @@
           <div class="panel-head"><div><span class="status-dot"></span> <strong id="file-name">Video</strong></div><button id="replace" class="text-button">Replace video</button></div>
           <div class="video-stage"><video id="video" controls playsinline preload="metadata"></video><canvas id="overlay" aria-label="HUD selection overlay"></canvas></div>
           <div class="file-meta" id="file-meta"></div>
-          <div class="preview-tools"><button id="frame-back" class="button small quiet" aria-label="Previous frame">← Frame</button><button id="frame-next" class="button small quiet" aria-label="Next frame">Frame →</button><button id="pick-bar" class="button small quiet">Pick hunger bar position</button><span id="preview-time">0:00.00</span></div>
-          <p class="inline-help" id="pick-help" hidden>Click the top-left corner of the leftmost hunger icon at rest. Set the scale in the controls.</p>
+          <div class="preview-tools"><button id="frame-back" class="button small quiet" aria-label="Previous frame">← Frame</button><button id="frame-next" class="button small quiet" aria-label="Next frame">Frame →</button><button id="pick-bar" class="button small quiet" aria-pressed="false" aria-describedby="pick-help">Pick hunger bar position</button><span id="preview-time">0:00.00</span></div>
+          <p class="inline-help" id="pick-help" hidden>Click the top-left corner of the leftmost hunger icon at rest. Set its scale below. Press Escape or click outside the preview to cancel.</p>
         </section>
         <section class="panel progress-panel" id="progress-panel" hidden>
-          <div class="panel-head"><strong id="scan-status">Preparing scanner…</strong><span id="percent">0%</span></div><progress id="progress" max="100" value="0"></progress><div class="progress-meta"><span id="progress-detail">Your video stays on this device.</span><button id="cancel" class="text-button">Cancel scan</button></div>
+          <div class="panel-head"><strong id="scan-status" role="status">Preparing scanner…</strong><span id="percent">0%</span></div><progress id="progress" aria-label="Analysis progress" max="100" value="0"></progress><div class="progress-meta"><span id="progress-detail">Your video stays on this device.</span><button id="cancel" class="text-button">Cancel scan</button></div>
         </section>
         <div class="info-strip"><span class="info-marker">i</span><p>Jolts in Minecraft’s hunger bar and low-health hearts can reveal the game’s clock. Compare it with the video clock to investigate missing time.</p></div>
       </div>
@@ -75,7 +75,7 @@
   </section>
 
   <section id="results" hidden>
-    <div class="results-heading"><div><span class="eyebrow">ANALYSIS COMPLETE</span><h2 id="result-title">Results</h2></div><div class="row-actions"><button id="export-json" class="button quiet">↓ Results JSON</button><button id="export-html" class="button primary">↓ Interactive report</button></div></div>
+    <div class="results-heading"><div><span class="eyebrow" id="result-origin">ANALYSIS COMPLETE</span><h2 id="result-title">Results</h2></div><div class="row-actions"><button id="export-json" class="button quiet">↓ Results JSON</button><button id="export-html" class="button primary">↓ Interactive report</button></div></div>
     <p id="result-note" class="result-note"></p>
     <div class="metrics"><div><span>JOLTS DETECTED</span><strong id="jolts-count">0</strong></div><div><span>MATCHED TICKS</span><strong id="matched-count">0</strong></div><div><span>POSSIBLE CUTS</span><strong id="cuts-count">0</strong></div><div><span>READABLE HUNGER FRAMES</span><strong id="coverage">0%</strong></div></div>
     <section class="panel timeline-panel"><div class="panel-head"><strong>Game clock / video clock</strong><span class="chart-legend"><i></i> Matched ticks</span></div><svg id="timeline" viewBox="0 0 1000 230" role="img" aria-label="Game uptime at video start across matched readings"></svg><div class="chart-axis"><span id="chart-start">0:00</span><span>VIDEO TIME → · Vertical axis: inferred uptime at video start (seconds)</span><span id="chart-end">0:00</span></div></section>

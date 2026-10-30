@@ -18,6 +18,8 @@ async function open(file) {
   if (!('VideoDecoder' in self)) throw new Error('This browser needs WebCodecs video support in a secure context (HTTPS). Open Jolt Studio in a current Chrome or Edge browser.');
   if (file === selectedFile && metadata) return metadata;
   input?.dispose();
+  // A failed replacement must not leave the disposed video's metadata cached.
+  metadata = undefined; track = undefined; selectedFile = undefined;
   input = new Input({ formats: ALL_FORMATS, source: new BlobSource(file) });
   track = await input.getPrimaryVideoTrack();
   if (!track) throw new Error('No video track was found in this file.');

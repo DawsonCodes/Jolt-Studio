@@ -9,9 +9,21 @@ export function parseTime(value, fallback = 0) {
 export function clock(seconds, decimals = 2) {
   if (!Number.isFinite(seconds)) return '—';
   const sign = seconds < 0 ? '−' : '';
-  seconds = Math.abs(seconds);
+  seconds = Math.round(Math.abs(seconds) * 10 ** decimals) / 10 ** decimals;
   const minutes = Math.floor(seconds / 60);
   return `${sign}${minutes}:${(seconds % 60).toFixed(decimals).padStart(decimals ? 3 + decimals : 2, '0')}`;
+}
+export function scanRange(startValue, endValue, duration) {
+  const start = parseTime(startValue), end = parseTime(endValue, duration);
+  if (!Number.isFinite(duration) || start < 0 || end <= start || end > duration + .001) {
+    throw new Error('Choose a start before the end, within the video’s duration.');
+  }
+  return { start, end: Math.min(end, duration) };
+}
+export function videoBounds(sourceWidth, sourceHeight, width, height) {
+  const scale = Math.min(width / sourceWidth, height / sourceHeight);
+  const fittedWidth = sourceWidth * scale, fittedHeight = sourceHeight * scale;
+  return { x: (width - fittedWidth) / 2, y: (height - fittedHeight) / 2, width: fittedWidth, height: fittedHeight };
 }
 export function parseBars(text) {
   if (!text.trim()) return [];
@@ -22,18 +34,19 @@ export function parseBars(text) {
   });
 }
 export function validateResult(data) {
-  if (!data || typeof data !== 'object' || !Array.isArray(data.jolts) || !Array.isArray(data.runs) || !Array.isArray(data.breaks) || !Array.isArray(data.span) || data.span.length !== 2 || !data.span.every(Number.isFinite)) throw new Error('This file is not a supported Jolt JSON report.');
+  if (!data || typeof data !== 'object' || !Array.isArray(data.jolts) || !Array.isArray(data.runs) || !Array.isArray(data.breaks) || !Array.isArray(data.span) || data.span.length !== 2 || !data.span.every(Number.isFinite) || data.span[0] < 0 || data.span[1] < data.span[0]) throw new Error('This file is not a supported Jolt JSON report.');
   if (data.jolts.length > 2_000_000 || data.runs.length > 100_000 || data.breaks.length > 100_000) throw new Error('This report is too large to display.');
   if (data.fps != null && (!Number.isFinite(data.fps) || data.fps <= 0)) throw new Error('The report contains an invalid frame rate.');
   if (data.version != null && (typeof data.version !== 'string' || !/^[\w .-]{1,64}$/.test(data.version))) throw new Error('The report contains an invalid version.');
-  for (const j of data.jolts) if (!Number.isFinite(j.time) || !Array.isArray(j.offsets) || j.offsets.length !== 10 || j.offsets.some(n => ![-1,0,1,9,null].includes(n)) || (j.tick != null && !Number.isFinite(j.tick))) throw new Error('The report contains an invalid jolt.');
-  for (const r of data.runs) if (!Array.isArray(r.points) || (r.game != null && !Number.isInteger(r.game)) || r.points.some(p => !Array.isArray(p) || !Number.isFinite(p[0]) || !Number.isFinite(p[1]) || (p[2] != null && !Number.isInteger(p[2])))) throw new Error('The report contains an invalid tick run.');
+  for (const j of data.jolts) if (!j || !Number.isFinite(j.time) || !Array.isArray(j.offsets) || j.offsets.length !== 10 || j.offsets.some(n => ![-1,0,1,9,null].includes(n)) || (j.tick != null && !Number.isFinite(j.tick))) throw new Error('The report contains an invalid jolt.');
+  for (const r of data.runs) if (!r || !Array.isArray(r.points) || (r.game != null && !Number.isInteger(r.game)) || r.points.some(p => !Array.isArray(p) || !Number.isFinite(p[0]) || !Number.isFinite(p[1]) || (p[2] != null && !Number.isInteger(p[2])))) throw new Error('The report contains an invalid tick run.');
   for (const b of data.breaks) {
-    if (!Number.isFinite(b.from) || !Number.isFinite(b.to) || !['removed','stalled','restart','back','screen'].includes(b.kind) || !Number.isInteger(b.game) || (b.jump_seconds != null && !Number.isFinite(b.jump_seconds)) || (b.since != null && !Number.isFinite(b.since))) throw new Error('The report contains an invalid event.');
+    if (!b || !Number.isFinite(b.from) || !Number.isFinite(b.to) || !['removed','stalled','restart','back','screen'].includes(b.kind) || !Number.isInteger(b.game) || (b.jump_seconds != null && !Number.isFinite(b.jump_seconds)) || (b.since != null && !Number.isFinite(b.since))) throw new Error('The report contains an invalid event.');
     if (b.frames != null && (!Array.isArray(b.frames) || b.frames.length !== 2 || b.frames.some(f => typeof f !== 'string' || !/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(f)))) throw new Error('The report contains an invalid witness image.');
-    if (b.frame_positions != null && (!Array.isArray(b.frame_positions) || b.frame_positions.some(p => !['number','second','within_second','time'].every(k => Number.isFinite(p[k]))))) throw new Error('The report contains invalid frame positions.');
+    if (b.frame_positions != null && (!Array.isArray(b.frame_positions) || b.frame_positions.some(p => !p || !['number','second','within_second','time'].every(k => Number.isFinite(p[k]))))) throw new Error('The report contains invalid frame positions.');
   }
-  for (const g of data.games ?? []) if (![g.number,g.uptime_at_video_start,g.screen].every(Number.isFinite)) throw new Error('The report contains an invalid game clock.');
+  if (data.games != null && !Array.isArray(data.games)) throw new Error('The report contains invalid game clocks.');
+  for (const g of data.games ?? []) if (!g || ![g.number,g.uptime_at_video_start,g.screen].every(Number.isFinite)) throw new Error('The report contains an invalid game clock.');
   return data;
 }
 export function overview(data) {
